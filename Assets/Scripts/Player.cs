@@ -12,12 +12,14 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rb2D;
     PlayerAnimation playerAnimation;
+    SpriteRenderer spriteRenderer;
+    float move;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -33,10 +35,20 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        move = Input.GetAxisRaw("Horizontal");
         rb2D.velocity = new Vector2(move * speed, rb2D.velocity.y);
 
         playerAnimation.Move(move);
+
+        Flip();
+    }
+
+    void Flip()
+    {
+        if (move > 0)
+            spriteRenderer.flipX = false;
+        else if (move < 0)
+            spriteRenderer.flipX = true;
     }
 
     void Jump()
