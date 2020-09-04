@@ -4,6 +4,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    LayerMask groundLayer;
+    [SerializeField]
     float jumpForce = 4f;
 
     Rigidbody2D rb2D;
@@ -16,13 +18,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Debug.DrawRay(transform.position, Vector2.down * .6f, Color.green);
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (IsGrounded())
-            {
-                rb2D.AddForce(Vector2.up * jumpForce);
-                Debug.Log("jump");
-            }
+                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
         }
     }
 
@@ -31,12 +32,13 @@ public class Player : MonoBehaviour
     {
         float move = Input.GetAxisRaw("Horizontal");
 
-        rb2D.velocity = new Vector2(move, 0);
+        rb2D.velocity = new Vector2(move, rb2D.velocity.y);
     }
 
     bool IsGrounded()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, .6f, LayerMask.GetMask("Floor"));
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .6f, 1 << 8);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .6f, groundLayer.value);
 
         if (hit.collider != null)
             return true;
