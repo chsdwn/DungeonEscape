@@ -56,7 +56,10 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (IsGrounded())
+            {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
+                playerAnimation.Jump(true);
+            }
         }
     }
 
@@ -66,7 +69,10 @@ public class Player : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .65f, groundLayer.value);
 
         if (hit.collider != null)
+        {
+            playerAnimation.Jump(false);
             return true;
+        }
 
         return false;
     }
