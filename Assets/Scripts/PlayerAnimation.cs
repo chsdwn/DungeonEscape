@@ -14,6 +14,6 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Move(float move)
     {
-        playerAnimator.SetFloat("Move", move);
+        playerAnimator.SetFloat("Move", Mathf.Abs(move));
     }
 }
