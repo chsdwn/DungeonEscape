@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     LayerMask groundLayer;
     [SerializeField]
     float jumpForce = 4f;
+    [SerializeField]
+    float speed = 4f;
 
     Rigidbody2D rb2D;
 
@@ -18,8 +20,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(transform.position, Vector2.down * .6f, Color.green);
-
         Jump();
     }
 
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         float move = Input.GetAxisRaw("Horizontal");
-        rb2D.velocity = new Vector2(move, rb2D.velocity.y);
+        rb2D.velocity = new Vector2(move * speed, rb2D.velocity.y);
     }
 
     void Jump()
@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     bool IsGrounded()
     {
         // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .6f, 1 << 8);
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .6f, groundLayer.value);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, .65f, groundLayer.value);
 
         if (hit.collider != null)
             return true;
