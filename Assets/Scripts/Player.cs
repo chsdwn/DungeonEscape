@@ -20,19 +20,28 @@ public class Player : MonoBehaviour
     {
         Debug.DrawRay(transform.position, Vector2.down * .6f, Color.green);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (IsGrounded())
-                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
-        }
+        Jump();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float move = Input.GetAxisRaw("Horizontal");
+        Move();
+    }
 
+    void Move()
+    {
+        float move = Input.GetAxisRaw("Horizontal");
         rb2D.velocity = new Vector2(move, rb2D.velocity.y);
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsGrounded())
+                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce);
+        }
     }
 
     bool IsGrounded()
