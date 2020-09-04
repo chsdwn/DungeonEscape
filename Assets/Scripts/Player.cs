@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     float speed = 4f;
 
     Rigidbody2D rb2D;
+    PlayerAnimation playerAnimation;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     void Update()
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour
     {
         float move = Input.GetAxisRaw("Horizontal");
         rb2D.velocity = new Vector2(move * speed, rb2D.velocity.y);
+
+        playerAnimation.Move(move);
     }
 
     void Jump()
