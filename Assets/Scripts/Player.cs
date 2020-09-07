@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb2D;
     PlayerAnimation playerAnimation;
     SpriteRenderer spriteRenderer;
+    Transform swordArc;
     float move;
 
     void Start()
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        swordArc = transform.GetChild(1);
     }
 
     void Update()
@@ -54,10 +56,27 @@ public class Player : MonoBehaviour
 
     void Flip()
     {
+        SpriteRenderer sr = swordArc.GetComponent<SpriteRenderer>();
+        Vector3 pos = swordArc.transform.position;
+
         if (move > 0)
+        {
             spriteRenderer.flipX = false;
+
+            sr.flipX = false;
+            sr.flipY = false;
+
+            swordArc.transform.position = new Vector3(pos.x, pos.y, pos.z);
+        }
         else if (move < 0)
+        {
             spriteRenderer.flipX = true;
+
+            sr.flipX = true;
+            sr.flipY = true;
+
+            swordArc.transform.position = new Vector3(-pos.x, pos.y, pos.z);
+        }
     }
 
     void Jump()
