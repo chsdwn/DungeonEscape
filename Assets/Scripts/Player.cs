@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb2D;
     PlayerAnimation playerAnimation;
     SpriteRenderer spriteRenderer;
-    Transform swordArc;
+    SpriteRenderer swordArcSR;
     float move;
 
     void Start()
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        swordArc = transform.GetChild(1);
+        swordArcSR = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -56,26 +56,27 @@ public class Player : MonoBehaviour
 
     void Flip()
     {
-        SpriteRenderer sr = swordArc.GetComponent<SpriteRenderer>();
-        Vector3 pos = swordArc.transform.position;
+        Vector3 newPos = swordArcSR.transform.localPosition;
 
         if (move > 0)
         {
             spriteRenderer.flipX = false;
 
-            sr.flipX = false;
-            sr.flipY = false;
+            swordArcSR.flipX = false;
+            swordArcSR.flipY = false;
 
-            swordArc.transform.position = new Vector3(pos.x, pos.y, pos.z);
+            newPos.x = 1.01f;
+            swordArcSR.transform.localPosition = newPos;
         }
         else if (move < 0)
         {
             spriteRenderer.flipX = true;
 
-            sr.flipX = true;
-            sr.flipY = true;
+            swordArcSR.flipX = true;
+            swordArcSR.flipY = true;
 
-            swordArc.transform.position = new Vector3(-pos.x, pos.y, pos.z);
+            newPos.x = -1.01f;
+            swordArcSR.transform.localPosition = newPos;
         }
     }
 
