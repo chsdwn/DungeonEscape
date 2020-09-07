@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     void Attack()
     {
-        if (Input.GetAxis("Fire1") > 0)
+        if (Input.GetMouseButtonDown(0) && IsGrounded())
             playerAnimation.Attack();
     }
 
