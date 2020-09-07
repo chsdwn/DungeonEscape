@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Jump();
+        Attack();
 
         playerAnimation.Jump(!IsGrounded());
     }
@@ -33,6 +34,12 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+    }
+
+    void Attack()
+    {
+        if (Input.GetAxis("Fire1") > 0)
+            playerAnimation.Attack();
     }
 
     void Move()
