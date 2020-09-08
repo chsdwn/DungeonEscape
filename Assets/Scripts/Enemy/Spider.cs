@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spider : Enemy
+public class Spider : Enemy, IDamageable
 {
+    public int Health { get; set; }
+
+    protected override void Init()
+    {
+        base.Init();
+    }
+
+    public void Damage()
+    {
+
+    }
 }
