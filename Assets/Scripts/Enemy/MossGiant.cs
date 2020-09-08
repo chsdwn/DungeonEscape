@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MossGiant : Enemy
 {
+    protected static string IDLE_ANIMATION = "Idle";
+
     Animator anim;
     SpriteRenderer spriteRenderer;
     Vector3 target;
@@ -16,7 +18,7 @@ public class MossGiant : Enemy
 
     public override void Update()
     {
-        if (IsAnimationPlaying("Idle"))
+        if (IsAnimationPlaying(IDLE_ANIMATION))
             return;
 
         Movement();
@@ -28,11 +30,13 @@ public class MossGiant : Enemy
         {
             target = pointB.position;
             Flip(false);
+            anim.SetTrigger(IDLE_ANIMATION);
         }
         else if (Mathf.Approximately(transform.position.x, pointB.position.x))
         {
             target = pointA.position;
             Flip(true);
+            anim.SetTrigger(IDLE_ANIMATION);
         }
 
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
@@ -45,7 +49,7 @@ public class MossGiant : Enemy
 
     bool IsAnimationPlaying(string name)
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(name))
             return true;
 
         return false;
