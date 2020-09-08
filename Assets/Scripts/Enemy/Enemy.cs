@@ -17,6 +17,8 @@ public abstract class Enemy : MonoBehaviour
     protected SpriteRenderer spriteRenderer;
     protected Vector3 target;
 
+    protected bool IsHit = false;
+
     void Start()
     {
         Init();
@@ -27,7 +29,8 @@ public abstract class Enemy : MonoBehaviour
         if (IsAnimationPlaying("Idle"))
             return;
 
-        Movement();
+        if (!IsHit)
+            Movement();
     }
 
     protected virtual void Init()
