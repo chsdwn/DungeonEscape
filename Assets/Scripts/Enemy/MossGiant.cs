@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class MossGiant : Enemy
 {
-    Animator animator;
+    Animator anim;
+    SpriteRenderer spriteRenderer;
     Vector3 target;
 
-    public override void Attack() { }
+    void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
     public override void Update()
     {
         if (IsAnimationPlaying("Idle"))
@@ -34,17 +40,12 @@ public class MossGiant : Enemy
 
     void Flip(bool flipX)
     {
-        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
         spriteRenderer.flipX = flipX;
     }
 
     bool IsAnimationPlaying(string name)
     {
-        Animator anim = GetComponentInChildren<Animator>();
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") &&
-            anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f)
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             return true;
 
         return false;
