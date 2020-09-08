@@ -16,7 +16,7 @@ public class Attack : MonoBehaviour
             {
                 hit.Damage();
                 CanDamage = false;
-                Debug.Log("Hit");
+
                 StartCoroutine(Wait500msUntilHitAgainCoroutine());
                 CanDamage = true;
             }
