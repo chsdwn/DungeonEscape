@@ -19,6 +19,7 @@ public class Skeleton : Enemy, IDamageable
         IsHit = true;
 
         anim.SetTrigger("Hit");
+        anim.SetBool("InCombat", true);
 
         if (Health <= 0)
             Destroy(transform.gameObject);
