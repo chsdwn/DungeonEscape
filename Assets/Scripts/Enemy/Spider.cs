@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Spider : Enemy
 {
-    public override void Attack() { }
+    void Start()
+    {
+
+    }
     public override void Update() { }
 }
