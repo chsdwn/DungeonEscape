@@ -13,14 +13,21 @@ public class MossGiant : Enemy
         if (Mathf.Approximately(transform.position.x, pointA.position.x))
         {
             target = pointB.position;
-            GetComponentInChildren<SpriteRenderer>().flipX = false;
+            Flip(false);
         }
         else if (Mathf.Approximately(transform.position.x, pointB.position.x))
         {
             target = pointA.position;
-            GetComponentInChildren<SpriteRenderer>().flipX = true;
+            Flip(true);
         }
 
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+    }
+
+    void Flip(bool flipX)
+    {
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        spriteRenderer.flipX = flipX;
     }
 }
