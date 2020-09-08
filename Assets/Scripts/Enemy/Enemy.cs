@@ -7,11 +7,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     protected int health;
     [SerializeField]
-    protected int speed;
+    protected float speed;
     [SerializeField]
     protected int gems;
     [SerializeField]
-    protected Transform pointA, pointB;
+    protected Transform pointLeft, pointRight;
 
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
@@ -38,15 +38,15 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Movement()
     {
-        if (Mathf.Approximately(transform.position.x, pointA.position.x))
+        if (Mathf.Approximately(transform.position.x, pointLeft.position.x))
         {
-            target = pointB.position;
+            target = pointRight.position;
             spriteRenderer.flipX = false;
             anim.SetTrigger("Idle");
         }
-        else if (Mathf.Approximately(transform.position.x, pointB.position.x))
+        else if (Mathf.Approximately(transform.position.x, pointRight.position.x))
         {
-            target = pointA.position;
+            target = pointLeft.position;
             spriteRenderer.flipX = true;
             anim.SetTrigger("Idle");
         }
