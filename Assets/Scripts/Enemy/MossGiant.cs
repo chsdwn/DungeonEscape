@@ -13,6 +13,6 @@ public class MossGiant : Enemy, IDamageable
 
     public void Damage()
     {
-
+        Debug.Log("You hit Giant");
     }
 }
