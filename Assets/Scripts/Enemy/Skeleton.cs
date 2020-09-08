@@ -9,10 +9,15 @@ public class Skeleton : Enemy, IDamageable
     protected override void Init()
     {
         base.Init();
+
+        Health = health;
     }
 
     public void Damage()
     {
-        Debug.Log("You hit Skeleton");
+        Health--;
+
+        if (Health <= 0)
+            Destroy(transform.gameObject);
     }
 }
