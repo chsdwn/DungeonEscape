@@ -28,7 +28,6 @@ public class Skeleton : Enemy, IDamageable
         float distance = Vector3.Distance(transform.localPosition, player.transform.localPosition);
         if (distance > 2f)
         {
-            Debug.Log($"distance: {distance}");
             IsHit = false;
             anim.SetBool("InCombat", false);
         }
