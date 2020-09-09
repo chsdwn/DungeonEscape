@@ -14,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
     protected Transform pointLeft, pointRight;
 
     protected Animator anim;
+    protected Player player;
     protected SpriteRenderer spriteRenderer;
     protected Vector3 target;
 
@@ -29,17 +30,17 @@ public abstract class Enemy : MonoBehaviour
         if (IsAnimationPlaying("Idle"))
             return;
 
-        if (!IsHit)
-            Movement();
+        Movement();
     }
 
     protected virtual void Init()
     {
         anim = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
-    protected void Movement()
+    protected virtual void Movement()
     {
         if (Mathf.Approximately(transform.position.x, pointLeft.position.x))
         {
@@ -54,7 +55,8 @@ public abstract class Enemy : MonoBehaviour
             anim.SetTrigger("Idle");
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        if (!IsHit)
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
 
     protected bool IsAnimationPlaying(string name)
