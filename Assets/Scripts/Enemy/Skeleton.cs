@@ -21,6 +21,7 @@ public class Skeleton : Enemy, IDamageable
             return;
 
         Movement();
+        ChangeDirectionBeforeAttack();
     }
 
     protected override void Movement()
@@ -45,12 +46,15 @@ public class Skeleton : Enemy, IDamageable
         anim.SetTrigger("Hit");
         anim.SetBool("InCombat", true);
 
-        if (direction.x > 0)
-            spriteRenderer.flipX = false;
-        else if (direction.x < 0)
-            spriteRenderer.flipX = true;
-
         if (Health <= 0)
             Destroy(transform.gameObject);
+    }
+
+    void ChangeDirectionBeforeAttack()
+    {
+        if (direction.x > 0 && anim.GetBool("InCombat"))
+            spriteRenderer.flipX = false;
+        else if (direction.x < 0 && anim.GetBool("InCombat"))
+            spriteRenderer.flipX = true;
     }
 }
