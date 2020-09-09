@@ -6,6 +6,8 @@ public class Skeleton : Enemy, IDamageable
 {
     public int Health { get; set; }
 
+    Vector3 direction;
+
     protected override void Init()
     {
         base.Init();
@@ -31,6 +33,8 @@ public class Skeleton : Enemy, IDamageable
             IsHit = false;
             anim.SetBool("InCombat", false);
         }
+
+        direction = (player.transform.localPosition - transform.localPosition).normalized;
     }
 
     public void Damage()
@@ -40,6 +44,11 @@ public class Skeleton : Enemy, IDamageable
 
         anim.SetTrigger("Hit");
         anim.SetBool("InCombat", true);
+
+        if (direction.x > 0)
+            spriteRenderer.flipX = false;
+        else if (direction.x < 0)
+            spriteRenderer.flipX = true;
 
         if (Health <= 0)
             Destroy(transform.gameObject);
